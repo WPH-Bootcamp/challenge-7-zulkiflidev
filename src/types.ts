@@ -10,21 +10,18 @@ interface ITodo {
 }
 
 // TODO: Buat tipe untuk status To-Do (active/done)
-type TTodo = ITodo & {
+export type TTodo = ITodo & {
   status: "active" | "done"
 }
 
 
 // TODO: Buat tipe untuk fungsi-fungsi yang akan digunakan
 
-type AddFunction = (todo: ITodo) => void;
-
-type MarkFunction = (id: number) => void;
-
-type DeleteFunction = (id: number) => void;
-
-type ListFunction = () => void;
-type SearchFunction = (keyword: string) => void;
+export type AddFunction = (todo: ITodo) => void;
+export type MarkFunction = (id: number) => void;
+export type DeleteFunction = (id: number) => void;
+export type ListFunction = () => void;
+export type SearchFunction = (keyword: string) => void;
 
 
 
