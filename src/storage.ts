@@ -15,7 +15,7 @@ export function readTodos(): TTodo[] {
      try {
       
         const data = fs.readFileSync(filePath, 'utf-8');
-        return JSON.parse(data);
+        return JSON.parse(data); //ubah json ke object
     
     } catch (error) {
       
@@ -30,23 +30,24 @@ export function readTodos(): TTodo[] {
 // TODO: Buat fungsi untuk menyimpan To-Do ke file
 // Hint: Jangan lupa konversi ke JSON string sebelum disimpan
 
-export function saveTodos(todos: TTodo[]): void {
+export function saveTodos(todos: TTodo[]): boolean {
     
     
     try {
       
         fs.writeFileSync(filePath, JSON.stringify(todos, null, 2));
-    
+        return true;
+
     } catch (error) {
       
         console.error('Error saving todos:', error);
-    
+        return false;
     }
 }
 
 
 // TODO: Buat fungsi untuk inisialisasi storage (buat file kosong jika belum ada)
-export function init() {
+export function init():void {
 
     const dir = path.dirname(filePath);
     

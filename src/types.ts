@@ -11,17 +11,17 @@ interface ITodo {
 
 // TODO: Buat tipe untuk status To-Do (active/done)
 export type TTodo = ITodo & {
-  status: "active" | "done"
+  status: "ACTIVE" | "DONE"
 }
 
 
 // TODO: Buat tipe untuk fungsi-fungsi yang akan digunakan
 
-export type AddFunction = (todo: ITodo) => void;
-export type MarkFunction = (id: number) => void;
-export type DeleteFunction = (id: number) => void;
-export type ListFunction = () => void;
-export type SearchFunction = (keyword: string) => void;
+export type TAddFunction = (data: Pick<ITodo, 'title' | 'description'>) => boolean;
+export type TMarkFunction = (data: Pick<ITodo, 'id'>) => void;
+export type TDeleteFunction = (data: Pick<ITodo, 'id'>) => void;
+export type TListFunction = () => void;
+export type TSearchFunction = (keyword: string) => void;
 
 
 
