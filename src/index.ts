@@ -2,11 +2,10 @@
 import readline from 'readline/promises'; //versi terbaru
 
 // TODO: Import fungsi-fungsi dari todoService
-import { addTodo, markTodo, todoDelete, todoList, todoSearch} from './todoService';
+import { addTodo, markTodo, todoDelete, todoList, todoSearch, getAllTodos} from './todoService';
 
 // TODO: Import fungsi-fungsi dari utils (termasuk type guards)
-import { isValidTodo, formatDate, isValidString } from './utils';
-import { readTodos } from './storage';
+import { isValidString } from './utils';
 
 
 // inisialisasi readline
@@ -39,12 +38,19 @@ async function handleUserInput(input: string): Promise<string> {
         
     if (input === "main")
         return await rl.question("Silahkan pilih menu > "); //tidak perlu callback, ajukan pertanyaan
+
     else if (input === "title_addTodo")
         return await rl.question("Silahkan masukkan nama task > ");
+
     else if (input === "desc_addTodo")
-        return await rl.question("Silahkan deskripsi task > ");
+        return await rl.question("Silahkan masukkan deskripsi task > ");
+
     else if (input === "index_todoList")
         return await rl.question("Silahkan masukkan nomor task  > ");
+
+    else if (input === "keyword_todoList")
+        return await rl.question("Silahkan masukkan keyword  > ");
+   
     else return "";   
 }
 
@@ -61,16 +67,12 @@ async function main(): Promise<void> {
         showMainMenu();
         const input = await handleUserInput("main");
 
-        if (input === "6"){
-            console.log("Terimakasih sudah menggunakan aplikasi ini...")
-            running = false;
-        }
-        else if (input === "1"){
+        if (input === "1"){
 
             while (true){
                 const title = await handleUserInput("title_addTodo");
 
-                if (title.trim() === "")
+                if (!isValidString(input) || title.trim() === "")
                     console.log("Error: Nama Task tidak boleh kosong!");               
                 else{
                     const description = await handleUserInput("desc_addTodo");
@@ -95,7 +97,7 @@ async function main(): Promise<void> {
                 if (choice.trim() === "") console.log("Error: Nomor Task tidak boleh kosong!");
                 else{
                     const taskNumber = parseInt(choice);
-                    const alltodos = readTodos();
+                    const alltodos = getAllTodos();
 
                     if (taskNumber > 0  && taskNumber <= alltodos.length){
                         const targetTodo = alltodos[taskNumber-1];                      
@@ -123,20 +125,22 @@ async function main(): Promise<void> {
 
                 if (keyword.trim() === "") console.log("Error: keyword tidak boleh kosong!");
                 else{
-                    const result = todoSearch(keyword)
-                    await waitForEnter();
-                    break;
+                    
+                    if (!isValidString(keyword)) console.log("Error: bukan string yang valid!");
+                    else { 
+                        const result = todoSearch(keyword); 
+                        break;
+                    }                                        
                 }
             }
             await waitForEnter();
         }
         else if (input === "6"){
             console.log("Terimakasih sudah menggunakan aplikasi ini, bye...")
-            rl.close();
+            running = false;
         }
     }
-    rl.close();
-    
+    rl.close();    
 }
 
 

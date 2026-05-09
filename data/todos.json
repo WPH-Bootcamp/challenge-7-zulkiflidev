@@ -1,25 +1,46 @@
 [
   {
-    "id": 1778237178900,
-    "title": "piknik ke puncak bogor",
-    "status": "DONE"
-  },
-  {
     "id": 1778244320605,
     "title": "Baca Buku",
     "description": "Buku Novel, Sejarah, Komik",
     "status": "DONE"
   },
   {
-    "id": 1778244752255,
-    "title": "Piknik ke luar kota",
-    "description": "ke Bandung dan Garut",
-    "status": "ACTIVE"
-  },
-  {
     "id": 1778244823561,
     "title": "beli baju baru",
     "description": "kemeja dan celana jeans",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 1778309619513,
+    "title": "Membersihkan Rumah",
+    "description": "3 kamar harus dipel",
+    "status": "DONE"
+  },
+  {
+    "id": 1778319798326,
+    "title": "Menyelesaikan Tugas Bootcamp",
+    "description": "tugas 6 & 7",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 1778322379531,
+    "title": "Cuci Mobil",
+    "status": "DONE"
+  },
+  {
+    "id": 1778323013908,
+    "title": "Piknik ke luar kota",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 1778323053729,
+    "title": "Membeli Paket Data",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 1778326184174,
+    "title": "Beli gandum di online shop",
     "status": "ACTIVE"
   }
 ]

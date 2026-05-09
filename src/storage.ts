@@ -31,8 +31,7 @@ export function readTodos(): TTodo[] {
 // Hint: Jangan lupa konversi ke JSON string sebelum disimpan
 
 export function saveTodos(todos: TTodo[]): boolean {
-    
-    
+        
     try {
       
         fs.writeFileSync(filePath, JSON.stringify(todos, null, 2));

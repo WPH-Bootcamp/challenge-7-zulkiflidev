@@ -7,6 +7,23 @@ import { TTodo, TAddFunction,
 // TODO: Import fungsi storage untuk baca/tulis file
 import { init, readTodos, saveTodos } from "./storage";
 
+//fungsi validator dari utils
+import { isValidTodo } from './utils';
+
+
+//fungsi terpusat pembaca data sekaligus memvalidasinya...
+const loadTodos = (): TTodo[] => {
+    
+    const data = readTodos();
+    const validData = data.filter(isValidTodo);
+     
+    if (validData.length < data.length) {
+        console.warn(`Peringatan: Ada ${data.length - validData.length} data rusak yang tidak dimuat.`);
+    }
+    return validData;
+};
+
+
 // TODO: Buat fungsi untuk menambahkan To-Do baru
 // - Generate id yang unik (bisa pakai timestamp atau counter)
 // - Pastikan text tidak kosong
@@ -17,7 +34,7 @@ export const addTodo: TAddFunction = (data) => {
     
     init(); //init dulu, sebelum simpan data, mencegah error
 
-    const todoList = readTodos(); //baca dulu dari file list yang suda ada
+    const todoList = loadTodos(); //baca dulu dari file list yang suda ada
 
     //buat todo baru, dengan nilai id dari timestamp
     const newTodo: TTodo = {
@@ -53,7 +70,7 @@ export const markTodo: TMarkFunction = (data) => {
     
     init();
 
-    const todoList = readTodos();
+    const todoList = loadTodos();
     const todo = todoList.find( t => t.id === id ) //cari todo berdasarkan id
 
         
@@ -80,17 +97,15 @@ export const todoDelete:TDeleteFunction = (data) => {
 
     init();
 
-    const todoList = readTodos();
-    const todo = todoList.find( t => t.id !== id )
+    const todoList = loadTodos();
+    const todo = todoList.find( t => t.id === id )
     
     if (todo){
-        todo.status = 'DONE';
-        
+              
         const newTodoList = todoList.filter( t => t.id !== id); //buat array baru yang isinya gak termasuk id yang dituju
-        
         saveTodos(newTodoList); //simpan array baru ini sebagai gantinya array lama 
-
         console.log (`Berhasil menghapus todo dengan id ${id}!`);
+        
     }        
     else {
         console.log(`Todo dengan id ${id} tidak berhasil ditemukan`)
@@ -108,12 +123,14 @@ export const todoList:TListFunction = () => {
 
     init();
     
-    const todoList = readTodos();
+    const todoList = loadTodos();
     console.log("\nDaftar Todo:");
     todoList.forEach( (todo, index) => {
         
         const no = index + 1; //nomor urut dimulai dari angka 1 ya
-        console.log(`[${todo.status}] ${no}. ${todo.title} - ${todo.description} `);
+        //console.log(`[${todo.status}] ${no}. ${todo.title} - ${todo.description} `);
+
+        console.log(`[${todo.status}] ${no}. ${todo.title} ${todo.description ? ` - ${todo.description} `: ""}`);
 
     });
     console.log();
@@ -126,13 +143,12 @@ export const todoSearch: TSearchFunction = (keyword) =>
     init();
 
     const lowerKeyword = keyword.toLowerCase();
-    const todoList = readTodos();
+    const todoList = loadTodos();
 
     const results = todoList.filter( t => {
         
         //jika keyword ada di title atau description, maka akan masuk ke hasil pencarian
         const keywordInTitle = t.title.toLowerCase().includes(lowerKeyword);
-
         const keywordInDesc = t.description?.toLowerCase().includes(lowerKeyword);
 
         return keywordInTitle || keywordInDesc;
@@ -148,8 +164,15 @@ export const todoSearch: TSearchFunction = (keyword) =>
             console.log(`${index + 1}. [${todo.status}] ${todo.title}`);
         
         });
-
-    }
-    
-    
+    }    
 }
+
+
+/// Fungsi pembaca all TODO
+export const getAllTodos = (): TTodo[] => {
+    
+    init(); // Pastikan storage siap
+
+    return loadTodos();
+
+};
