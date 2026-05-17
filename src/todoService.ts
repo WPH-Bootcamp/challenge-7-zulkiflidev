@@ -10,6 +10,13 @@ import { init, readTodos, saveTodos } from "./storage";
 //fungsi validator dari utils
 import { isValidTodo } from './utils';
 
+//untuk warna tulisan
+const reset = "\x1b[0m";
+const red = "\x1b[31m";
+const green = "\x1b[32m";
+const yellow = "\x1b[33m";
+const blue = "\x1b[34m";
+
 
 //fungsi terpusat pembaca data sekaligus memvalidasinya...
 const loadTodos = (): TTodo[] => {
@@ -50,11 +57,11 @@ export const addTodo: TAddFunction = (data) => {
     const result = saveTodos(todoList); //simpan lagi hasilnya ke file
     
     if (result){
-        console.log ("Berhasil menambahkan todo baru!");
+        console.log (`${green}Success: Berhasil menambahkan todo baru!${reset}`);
         return true;
     }
     else{
-        console.log ("Error: Gagal menambahkan todo baru!");
+        console.log (`${red}Error: Gagal menambahkan todo baru!${reset}`);
         return false;
     }
     
@@ -78,10 +85,10 @@ export const markTodo: TMarkFunction = (data) => {
     if (todo){
         todo.status = 'DONE';
         saveTodos(todoList);
-        console.log (`Berhasil mengubah status todo dengan id ${id} menjadi DONE!`);
+        console.log (`${green}Berhasil mengubah status todo dengan id ${id} menjadi DONE!${reset}`);
     }        
     else {
-        console.log(`Todo dengan id ${id} tidak berhasil ditemukan`)
+        console.log(`${red}Error: Todo dengan id ${id} tidak berhasil ditemukan!${reset}`)
     }
             
 }
@@ -104,11 +111,11 @@ export const todoDelete:TDeleteFunction = (data) => {
               
         const newTodoList = todoList.filter( t => t.id !== id); //buat array baru yang isinya gak termasuk id yang dituju
         saveTodos(newTodoList); //simpan array baru ini sebagai gantinya array lama 
-        console.log (`Berhasil menghapus todo dengan id ${id}!`);
+        console.log (`${green}Success: Berhasil menghapus todo dengan id ${id}!${reset}`);
         
     }        
     else {
-        console.log(`Todo dengan id ${id} tidak berhasil ditemukan`)
+        console.log(`${red}Error: Todo dengan id ${id} tidak berhasil ditemukan!${reset}`)
     }
 }
 
@@ -128,10 +135,10 @@ export const todoList:TListFunction = () => {
     todoList.forEach( (todo, index) => {
         
         const no = index + 1; //nomor urut dimulai dari angka 1 ya
-        //console.log(`[${todo.status}] ${no}. ${todo.title} - ${todo.description} `);
+        console.log(`${todo.status === 'ACTIVE' ? yellow : todo.status === 'DONE' ? blue : reset}[${todo.status}]${reset} ${no}. ${todo.title} ${todo.description ? ` -- ${green}${todo.description}${reset} ` : ""}`);
 
-        console.log(`[${todo.status}] ${no}. ${todo.title} ${todo.description ? ` - ${todo.description} `: ""}`);
 
+        
     });
     console.log();
 }
@@ -161,7 +168,7 @@ export const todoSearch: TSearchFunction = (keyword) =>
         console.log(`\n Hasil pencarian untuk:"${keyword}"`);
         
         results.forEach((todo, index) => {
-            console.log(`${index + 1}. [${todo.status}] ${todo.title}`);
+            console.log(`${todo.status === 'ACTIVE' ? yellow : todo.status === 'DONE' ? blue : reset}[${todo.status}]${reset} ${index+1}. ${todo.title} ${todo.description ? ` -- ${green}${todo.description}${reset} ` : ""}`);
         
         });
     }    
