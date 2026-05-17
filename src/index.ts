@@ -27,7 +27,7 @@ const rl = readline.createInterface({
 
 function showMainMenu():void {
     console.log(`
-    ToDo Apps - by Zulkifli
+    ${yellow}ToDo Apps${reset} - ${green}by Zulkifli${reset}
     ========================
     1. Add new todo
     2. Mark todo as complete
@@ -79,10 +79,10 @@ async function main(): Promise<void> {
                 const title = await handleUserInput("title_addTodo");
 
                 if (!isValidString(input) || title.trim() === "")
-                    console.log("Error: Nama Task tidak boleh kosong!");               
+                    console.log(`${red}Error: Nama Task tidak boleh kosong!${reset}`);               
                 else{
                     const description = await handleUserInput("desc_addTodo");
-                    console.log(`Task "${title}" sudah berhasil ditambahkan & disimpan ke daftar ToDo`);
+                    console.log(`${yellow}Task "${title}" sudah berhasil ditambahkan & disimpan ke daftar ToDo${reset}`);
 
                     const result = addTodo({
                                         title: title,
@@ -100,14 +100,14 @@ async function main(): Promise<void> {
             while (true){
                 const choice = await handleUserInput("index_todoList");
 
-                if (choice.trim() === "") console.log("Error: Nomor Task tidak boleh kosong!");
+                if (choice.trim() === "") console.log(`${red}Error: Nomor Task tidak boleh kosong!${reset}`);
                 else{
                     const taskNumber = parseInt(choice);
                     const alltodos = getAllTodos();
 
                     if (taskNumber > 0  && taskNumber <= alltodos.length){
                         const targetTodo = alltodos[taskNumber-1];                      
-                        console.log(`Memproses: ${targetTodo.title}...`);
+                        console.log(`${yellow}Memproses: ${targetTodo.title}...${reset}`);
 
                         if (input === "2")
                             markTodo({ id: targetTodo.id }); 
@@ -116,7 +116,7 @@ async function main(): Promise<void> {
                         await waitForEnter();
                         break;
                     }
-                    else console.log("Error: Nomor task tidak valid!")
+                    else console.log(`${red}Error: Nomor task tidak valid!${reset}`)
                     
                 }
             }
@@ -129,10 +129,10 @@ async function main(): Promise<void> {
             while (true){
                 const keyword = await handleUserInput("keyword_todoList");
 
-                if (keyword.trim() === "") console.log("Error: keyword tidak boleh kosong!");
+                if (keyword.trim() === "") console.log(`${red}Error: keyword tidak boleh kosong!${reset}`);
                 else{
                     
-                    if (!isValidString(keyword)) console.log("Error: bukan string yang valid!");
+                    if (!isValidString(keyword)) console.log(`${red}Error: bukan string yang valid!${reset}`);
                     else { 
                         const result = todoSearch(keyword); 
                         break;
@@ -142,7 +142,7 @@ async function main(): Promise<void> {
             await waitForEnter();
         }
         else if (input === "6"){
-            console.log("Terimakasih sudah menggunakan aplikasi ini, bye...")
+            console.log(`Terimakasih sudah menggunakan aplikasi ini, bye...`)
             running = false;
         }
     }
@@ -151,6 +151,6 @@ async function main(): Promise<void> {
 
 
 // TODO: Jalankan fungsi main
-console.log('Welcome to TypeScript To-Do App!');
+console.log('Welcome to TypeScript ${green}To-Do App!${reset}');
 console.log('Start building your app here...');
 main();
