@@ -8,6 +8,12 @@ import { addTodo, markTodo, todoDelete, todoList, todoSearch, getAllTodos} from 
 import { isValidString } from './utils';
 
 
+//untuk warna tulisan
+const reset = "\x1b[0m";
+const red = "\x1b[31m";
+const green = "\x1b[32m";
+const yellow = "\x1b[33m";
+
 // inisialisasi readline
 const rl = readline.createInterface({
     input: process.stdin,
@@ -111,7 +117,7 @@ async function main(): Promise<void> {
                         break;
                     }
                     else console.log("Error: Nomor task tidak valid!")
-                    //const retult = markTodo();
+                    
                 }
             }
         }

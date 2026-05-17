@@ -3,19 +3,19 @@
     "id": 1778244320605,
     "title": "Baca Buku",
     "description": "Buku Novel, Sejarah, Komik",
-    "status": "DONE"
+    "status": "ACTIVE"
   },
   {
     "id": 1778244823561,
     "title": "beli baju baru",
     "description": "kemeja dan celana jeans",
-    "status": "ACTIVE"
+    "status": "DONE"
   },
   {
     "id": 1778309619513,
     "title": "Membersihkan Rumah",
     "description": "3 kamar harus dipel",
-    "status": "DONE"
+    "status": "ACTIVE"
   },
   {
     "id": 1778319798326,
@@ -29,18 +29,25 @@
     "status": "DONE"
   },
   {
-    "id": 1778323013908,
-    "title": "Piknik ke luar kota",
-    "status": "ACTIVE"
-  },
-  {
     "id": 1778323053729,
     "title": "Membeli Paket Data",
-    "status": "ACTIVE"
+    "status": "DONE"
   },
   {
     "id": 1778326184174,
     "title": "Beli gandum di online shop",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 1779005579221,
+    "title": "Jalan-jalan ke Puncak, Bogor",
+    "description": "ke taman safari dan kebun teh",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 1779005846695,
+    "title": "Beli Beras",
+    "description": "ukuran 50kg",
     "status": "ACTIVE"
   }
 ]

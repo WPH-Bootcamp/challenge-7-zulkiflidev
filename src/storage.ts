@@ -2,9 +2,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { TTodo } from './types';
 
+//untuk warna tulisan
+const reset = "\x1b[0m";
+const red = "\x1b[31m";
+const green = "\x1b[32m";
+const yellow = "\x1b[33m";
 
 // TODO: Definisikan path file untuk menyimpan data To-Do
-
 const filePath = path.join( process.cwd(), 'data', 'todos.json');
 
 // TODO: Buat fungsi untuk membaca To-Do dari file
@@ -19,7 +23,7 @@ export function readTodos(): TTodo[] {
     
     } catch (error) {
       
-        console.error('Error reading todos:', error);
+        console.error(`${red}Error: Gagal Membaca todos dari file:${reset}`, error);
         return [];
     
     }
@@ -39,7 +43,7 @@ export function saveTodos(todos: TTodo[]): boolean {
 
     } catch (error) {
       
-        console.error('Error saving todos:', error);
+        console.error(`${red}Error: Gagal menyimpan todos ke file:${reset}`, error);
         return false;
     }
 }
@@ -48,18 +52,23 @@ export function saveTodos(todos: TTodo[]): boolean {
 // TODO: Buat fungsi untuk inisialisasi storage (buat file kosong jika belum ada)
 export function init():void {
 
-    const dir = path.dirname(filePath);
-    
-    if (!fs.existsSync(dir)) {
-      
-        fs.mkdirSync(dir, { recursive: true }); // Buat direktori jika belum ada
-    
-    }
+    try {
+        const dir = path.dirname(filePath);
         
-    if (!fs.existsSync(filePath)) {
-      
-        fs.writeFileSync(filePath, '[]'); 
-    
+        if (!fs.existsSync(dir)) {
+        
+            fs.mkdirSync(dir, { recursive: true }); // Buat direktori jika belum ada
+        
+        }
+            
+        if (!fs.existsSync(filePath)) {
+        
+            fs.writeFileSync(filePath, '[]'); 
+        
+        }
+    }
+    catch (error) {
+        console.error(`${red}Error: Gagal Membuat direktori baru:${reset}`, error);
     }
 }
 
