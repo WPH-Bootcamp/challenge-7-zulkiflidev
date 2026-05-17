@@ -15,7 +15,7 @@
     "id": 1778309619513,
     "title": "Membersihkan Rumah",
     "description": "3 kamar harus dipel",
-    "status": "ACTIVE"
+    "status": "DONE"
   },
   {
     "id": 1778319798326,
@@ -48,6 +48,16 @@
     "id": 1779005846695,
     "title": "Beli Beras",
     "description": "ukuran 50kg",
+    "status": "DONE"
+  },
+  {
+    "id": 1779008219812,
+    "title": "Jalan Kaki 4 km",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 1779008424973,
+    "title": "Memperbaiki macbook",
     "status": "ACTIVE"
   }
 ]
